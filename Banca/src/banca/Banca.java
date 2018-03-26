@@ -17,10 +17,11 @@ public class Banca {
 		
 	}
 
-	public ArrayList<ContoCorrente> getBanca() {
+	/*public ArrayList<ContoCorrente> getBanca() {
 		ArrayList<ContoCorrente> stampaUtenti= null;
 		for(int x = 0 ;x <stampaUtenti.size();x++) {
-			x = stampaUtenti.get(x);
+			x = stampaUtenti.get();
+			System.out.println();
 		}
 		
 	}
@@ -28,7 +29,7 @@ public class Banca {
 	public void setBanca(List<ContoCorrente> banca) {
 		this.banca = banca;
 	}
-	
+	*/
 	
 	
 }

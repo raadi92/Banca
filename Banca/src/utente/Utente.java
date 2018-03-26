@@ -2,6 +2,7 @@ package utente;
 
 public interface Utente{
 
+
 }
 
 

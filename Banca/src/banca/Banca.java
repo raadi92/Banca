@@ -5,27 +5,23 @@ import java.util.ArrayList;
 import contocorrente.ContoCorrente;
 
 public class Banca {
-	
+	private String nome;
 	/**
 	 * gestire una lista di conto correnti
 	 */
 	
-	private ArrayList<ContoCorrente> listeContiCorrenti = new ArrayList<ContoCorrente>();
+	private ArrayList<ContoCorrente> listaContiCorrenti = new ArrayList<ContoCorrente>();
 	
-	public Banca () {
-		
+	public Banca (String nome) {
+		this.nome = nome;
 	}
-
-	public ArrayList<ContoCorrente> getListeContiCorrenti() {
-		return listeContiCorrenti;
+	
+	public String getNome() {
+		return this.nome;
 	}
-
-	public void setListeContiCorrenti(ArrayList<ContoCorrente> listeContiCorrenti) {
-		this.listeContiCorrenti = listeContiCorrenti;
+	
+	public void add(ContoCorrente cc) {
+		this.listaContiCorrenti.add(cc);
 	}
-
-	public String toString() {
-		return "Banca [listeContiCorrenti=" + listeContiCorrenti + "]";
-	}	
 	
 }

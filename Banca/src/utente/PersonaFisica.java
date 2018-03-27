@@ -2,7 +2,7 @@ package utente;
 
 import java.util.Date;
 
-public class PersonaFisica{
+public class PersonaFisica implements Utente{
 
 	private String nome;
 	private String cognome;
@@ -12,7 +12,7 @@ public class PersonaFisica{
 	private String luogo_nascita;
 	private String data_nascita;
 	
-	public PersonaFisica(String nome, String cognome, String cf, String luogo_nascita, String data_nascita, String genere) {
+	public PersonaFisica(String nome, String cognome, String genere, String cf, String luogo_nascita, String data_nascita) {
 		super();
 		this.nome = nome;
 		this.cognome = cognome;

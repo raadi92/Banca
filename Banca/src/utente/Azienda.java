@@ -1,13 +1,13 @@
 package utente;
 
-public class Azienda implements Utente{
+public class Azienda{
 	
 	private String ragSoc;
 	private long pIva; 
-	private Utente delegato;
+	private PersonaFisica delegato;
 	
 
-	public Azienda(String ragSoc, long pIva, Utente delegato) {
+	public Azienda(String ragSoc, long pIva, PersonaFisica delegato) {
 		super();
 		this.ragSoc = ragSoc;
 		this.pIva = pIva;
@@ -25,10 +25,10 @@ public class Azienda implements Utente{
 	public void setpIva(long pIva) {
 		this.pIva = pIva;
 	}
-	public Utente getDelegato() {
+	public PersonaFisica getDelegato() {
 		return delegato;
 	}
-	public void setDelegato(Utente delegato) {
+	public void setDelegato(PersonaFisica delegato) {
 		this.delegato = delegato;
 	}
 	

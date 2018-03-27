@@ -2,22 +2,39 @@ package utente;
 
 import java.util.Date;
 
-public class PersonaFisica implements Utente{
+public class PersonaFisica{
 
 	private String nome;
 	private String cognome;
-	private enum sesso{m,f};
+	private enum Sesso{M,F,ERR};
+	private Sesso genere;
 	private String cf;
 	private String luogo_nascita;
 	private String data_nascita;
 	
-	public PersonaFisica(String nome, String cognome, String cf, String luogo_nascita, String data_nascita) {
+	public PersonaFisica(String nome, String cognome, String cf, String luogo_nascita, String data_nascita, String genere) {
 		super();
 		this.nome = nome;
 		this.cognome = cognome;
 		this.cf = cf;
 		this.luogo_nascita = luogo_nascita;
 		this.data_nascita = data_nascita;
+		this.genere = (genere.toUpperCase() == "M") ? Sesso.M :
+			(genere.toUpperCase() == "F") ? Sesso.F : 
+				//errore sesso non corretto.
+				Sesso.ERR;
+	}
+
+	public PersonaFisica() {
+		super();
+	}
+	
+	public Sesso getGenere() {
+		return genere;
+	}
+
+	public void setGenere(Sesso genere) {
+		this.genere = genere;
 	}
 
 	public String getNome() {

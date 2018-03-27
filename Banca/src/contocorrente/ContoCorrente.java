@@ -102,6 +102,11 @@ public class ContoCorrente {
 		}
 		return tot;
 	}
+
+	public String toString() {
+		return "ContoCorrente [proprietario=" + proprietario + ", numeroConto=" + numeroConto + ", saldo=" + saldo
+				+ ", fido=" + fido + ", listaPrestiti=" + listaPrestiti + "]";
+	}
 	
 	/**
 	 * impostare il conto corrente 

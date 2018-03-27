@@ -15,13 +15,24 @@ public class Banca {
 	public Banca (String nome) {
 		this.nome = nome;
 	}
-	
-	public String getNome() {
-		return this.nome;
+
+	public String getNome () {
+		return nome;
 	}
 	
 	public void add(ContoCorrente cc) {
 		this.listaContiCorrenti.add(cc);
 	}
-	
+
+	public String toString() {
+		return "Banca [nome=" + nome + "\nlisteContiCorrenti: \n" + stampaContiCorrenti() + "]";
+	}
+
+
+	public String stampaContiCorrenti(){
+		String result = null;
+		
+		listaContiCorrenti.toString();
+		return result;
+	}
 }

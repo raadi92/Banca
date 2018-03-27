@@ -9,30 +9,23 @@ public class Banca {
 	/**
 	 * gestire una lista di conto correnti
 	 */
-
+	
 	private ArrayList<ContoCorrente> listaContiCorrenti = new ArrayList<ContoCorrente>();
+	
+	public Banca (String nome) {
+		this.nome = nome;
+	}
 
 	public String getNome () {
 		return nome;
 	}
-	public Banca (String nomeBanca) {
-		this.nome = nomeBanca;
-	}
-
-	public Banca () {
-
-	}
-
-	public ArrayList<ContoCorrente> getListaContiCorrenti() {
-		return listaContiCorrenti;
-	}
-
-	public void setListeContiCorrenti(ArrayList<ContoCorrente> listeContiCorrenti) {
-		this.listaContiCorrenti = listeContiCorrenti;
+	
+	public void add(ContoCorrente cc) {
+		this.listaContiCorrenti.add(cc);
 	}
 
 	public String toString() {
-		return "Banca [nome=" + nome + ", listeContiCorrenti=" + listaContiCorrenti.toString() + "]";
+		return "Banca [nome=" + nome + "\nlisteContiCorrenti: \n" + stampaContiCorrenti() + "]";
 	}
 
 

@@ -1,13 +1,13 @@
 package utente;
 
-public class Azienda{
+public class Azienda implements Utente{
 	
 	private String ragSoc;
-	private long pIva; 
+	private String pIva; 
 	private PersonaFisica delegato;
 	
 
-	public Azienda(String ragSoc, long pIva, PersonaFisica delegato) {
+	public Azienda(String ragSoc, String pIva, PersonaFisica delegato) {
 		super();
 		this.ragSoc = ragSoc;
 		this.pIva = pIva;
@@ -19,10 +19,10 @@ public class Azienda{
 	public void setRagSoc(String ragSoc) {
 		this.ragSoc = ragSoc;
 	}
-	public long getpIva() {
+	public String getpIva() {
 		return pIva;
 	}
-	public void setpIva(long pIva) {
+	public void setpIva(String pIva) {
 		this.pIva = pIva;
 	}
 	public PersonaFisica getDelegato() {

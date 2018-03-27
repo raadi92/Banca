@@ -6,7 +6,7 @@ import utente.*;
 
 public class ContoCorrente {
 	
-	private PersonaFisica proprietario;
+	private Utente proprietario;
 	private Iban numeroConto;
 	private double saldo;
 	private double fido;
@@ -19,7 +19,7 @@ public class ContoCorrente {
 	 * @param saldo
 	 */
 	
-	public ContoCorrente(PersonaFisica proprietario, Iban numeroConto, double saldo) {
+	public ContoCorrente(Utente proprietario, Iban numeroConto, double saldo) {
 		super();
 		this.proprietario = proprietario;
 		this.numeroConto = numeroConto;
@@ -39,11 +39,11 @@ public class ContoCorrente {
 		this.listaPrestiti = listaPrestiti;
 	}
 	
-	public PersonaFisica getProprietario() {
+	public Utente getProprietario() {
 		return proprietario;
 	}
 
-	public void setProprietario(PersonaFisica proprietario) {
+	public void setProprietario(Utente proprietario) {
 		this.proprietario = proprietario;
 	}
 	public Iban getNumeroConto() {

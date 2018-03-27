@@ -39,7 +39,7 @@ public class Banca {
 	public String stampaContiCorrenti(){
 		String result = null;
 		
-		listaContiCorrenti.toString();
+		result =listaContiCorrenti.toString();
 		return result;
 	}
 }

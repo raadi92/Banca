@@ -12,7 +12,7 @@ import utente.*;
 public class TestMain {
 
 	public static void main(String[] args) throws IOException {
-		Banca ISP = new Banca("Intesa_San_Paolo");
+		Banca ISP = new Banca("IntesaSanPaolo");
 		Banca UNI = new Banca("Unicredit");
 		BufferedReader br = null;
 		
@@ -20,7 +20,20 @@ public class TestMain {
 		leggiDBContiCorrenti(UNI);
 		
 		try {
-			br = new BufferedReader (new FileReader ("operazioni_ISP.txt"));
+			br = new BufferedReader (new FileReader ("operazioni_IntesaSanPaolo.txt"));
+						
+			for (String linea = br.readLine(); linea != null; linea = br.readLine())
+				effettuaOperazione (ISP, linea);
+			
+		} catch(FileNotFoundException e) {
+			e.printStackTrace();
+			System.out.println("file operazioni mancanti!");
+		} finally {
+			br.close();
+		}
+		
+		try {
+			br = new BufferedReader (new FileReader ("operazioni_Unicredit.txt"));
 						
 			for (String linea = br.readLine(); linea != null; linea = br.readLine())
 				effettuaOperazione (ISP, linea);

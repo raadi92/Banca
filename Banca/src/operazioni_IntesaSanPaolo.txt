@@ -1,0 +1,16 @@
+/**
+         * File operazioni_<NomeBanca> formato:
+         * <Operazione> <IBAN> <dati> {spaziati da un " "}
+         *         <Operazione> =    {
+         *             S = Saldo, <dati> = null
+         *             V = Versamento, <dati> = (cifra)
+         *             R = Ritiro/Prelievo, <dati> = (cifra)
+         *             D = Disponibilità, <dati> = (cifra)
+         *             F = Fido, <dati> = (cifra)
+         *             P = Prestito, <dati> = (cifra, durataAnni, annoPrestito, frequenzaMensile)
+         *             ITP = Importo Totale Prestiti, <dati> = null
+         *        }
+         *        <IBAN>: NB. è l'identificatore del conto corrente e pertanto deve essere sempre presente.
+         */
+         
+   

@@ -13,4 +13,5 @@
          *        <IBAN>: NB. è l'identificatore del conto corrente e pertanto deve essere sempre presente.
          */
          
-   
+V iban1 100
+R iban2	20

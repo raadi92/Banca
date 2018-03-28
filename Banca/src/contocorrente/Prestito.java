@@ -140,7 +140,7 @@ public class Prestito {
 		default:
 			return 0;
 		}
-		return ((((annoRata-(this.annoPrestito+this.durataAnni))*rateAnno)+aggiuntaMesi)*rata)*(1+interesse);
+		return ((((annoRata-(this.annoPrestito+this.durataAnni))*rateAnno)+aggiuntaMesi)*rata)*(1+(interesse/2));
 	}
 	
 	/**

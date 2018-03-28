@@ -12,37 +12,27 @@ import utente.*;
 public class TestMain {
 
 	public static void main(String[] args) throws IOException {
-		Banca ISP = new Banca("IntesaSanPaolo");
-		Banca UNI = new Banca("Unicredit");
+		
+		Banca [] banche = {new Banca("IntesaSanPaolo"), new Banca("Unicredit")};
 		BufferedReader br = null;
 		
-		leggiDBContiCorrenti(ISP);
-		leggiDBContiCorrenti(UNI);
+		for (int i=0; i<banche.length; i++)
+			leggiDBContiCorrenti(banche[i]);
 		
-		try {
-			br = new BufferedReader (new FileReader ("operazioni_IntesaSanPaolo.txt"));
-						
-			for (String linea = br.readLine(); linea != null; linea = br.readLine())
-				effettuaOperazione (ISP, linea);
-			
-		} catch(FileNotFoundException e) {
-			e.printStackTrace();
-			System.out.println("file operazioni mancanti!");
-		} finally {
-			br.close();
-		}
-		
-		try {
-			br = new BufferedReader (new FileReader ("operazioni_Unicredit.txt"));
-						
-			for (String linea = br.readLine(); linea != null; linea = br.readLine())
-				effettuaOperazione (ISP, linea);
-			
-		} catch(FileNotFoundException e) {
-			e.printStackTrace();
-			System.out.println("file operazioni mancanti!");
-		} finally {
-			br.close();
+		for (int i=0; i<banche.length; i++) {
+			String file  = "operazioni_"+ banche[i].getNome()+".txt";
+			try {
+				br = new BufferedReader (new FileReader (file));
+							
+				for (String linea = br.readLine(); linea != null; linea = br.readLine())
+					effettuaOperazione (banche[i], linea);
+				
+			} catch(FileNotFoundException e) {
+				e.printStackTrace();
+				System.out.println("file: "+ file + " mancante!");
+			} finally {
+				br.close();
+			}
 		}
 		
 	}
@@ -101,7 +91,7 @@ public class TestMain {
 		 *		<IBAN>: NB. è l'identificatore del conto corrente e pertanto deve essere sempre presente.
 		 */
 		String  [] dati = linea.split(" ");
-		switch (dati[0]) {
+		switch (dati[0].toUpperCase()) {
 		case "S":		//Saldo
 			b.getContoCorrente(dati[1]).saldo();
 			break;

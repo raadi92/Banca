@@ -1,8 +1,8 @@
 package banca;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
-import contocorrente.ContoCorrente;
+import contocorrente.*;
 
 public class Banca {
 	private String nome;
@@ -10,7 +10,7 @@ public class Banca {
 	 * gestire una lista di conto correnti
 	 */
 	
-	private ArrayList<ContoCorrente> listaContiCorrenti = new ArrayList<ContoCorrente>();
+	private HashMap<Iban, ContoCorrente> listaContiCorrenti = new HashMap<Iban, ContoCorrente>();
 	
 	public Banca (String nome) {
 		this.nome = nome;
@@ -21,7 +21,12 @@ public class Banca {
 	}
 	
 	public void add(ContoCorrente cc) {
-		this.listaContiCorrenti.add(cc);
+		this.listaContiCorrenti.put(cc.getNumeroConto(), cc);
+	}
+	
+	public ContoCorrente getContoCorrente(String iban ) {
+		Iban tmp = new Iban(iban);
+		return this.listaContiCorrenti.get(tmp);
 	}
 
 	public String toString() {

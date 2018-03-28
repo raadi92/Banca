@@ -56,10 +56,8 @@ public class ContoCorrente {
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}
-	public double fido() {
-		return fido;
-	}
-	public void richiediFido(double fido) {
+	
+	public void quantoFido(double fido) {
 		this.fido = fido;
 	}
 	

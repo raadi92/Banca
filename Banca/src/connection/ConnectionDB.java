@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class ConnectionDB {
 	String driver = "sun.jdbc.sqlite.JdbcSqLiteDriver";
-//	Class.forName(driver);
+	//	Class.forName(driver);
 	String url = "jdbc:sqlite:C:/sqlite/db/Test.db";
 	Connection connection = null;
 	Statement statement = null;
@@ -16,7 +16,7 @@ public class ConnectionDB {
 
 	public ConnectionDB() {
 	}
-	
+
 	public void  openConnetion() {
 		try {
 			connection = DriverManager.getConnection(url);
@@ -26,7 +26,7 @@ public class ConnectionDB {
 		}
 
 	}
-	
+
 	public void closeConnetion() {
 		try {
 			connection.close();
@@ -36,17 +36,23 @@ public class ConnectionDB {
 		}
 	}
 
-	public  void stampaTutto() {
+	public  void stampaTutto() throws SQLException {
+		/*
+		 * restituisce tutti i valori iban, nome ,saldo e idi 
+		 * della tabella cc
+		 */
+
 		openConnetion();
-		String query ="SEECT * FROM -------";
-	//	ResultSet resultSet = statement.executeQuery(query);
-	//	while (resultSet.next()) {
-			/*
-			 * da finire no ho i paramentri
-			 * 
-			 */
-		
-		
+		String query ="SEECT iban, nome ,saldo ,idi FROM  cc;";
+		ResultSet resultSet = statement.executeQuery(query);
+		while (resultSet.next()) {
+			System.out.println(resultSet.getString("iban"));
+			System.out.println(resultSet.getString("nome"));
+			System.out.println(resultSet.getDouble("saldo"));
+			System.out.println(resultSet.getInt("idi"));
+		}
+		resultSet.close();
+		closeConnetion();
 	}
 }
 

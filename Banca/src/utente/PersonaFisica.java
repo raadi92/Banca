@@ -1,6 +1,6 @@
 package utente;
 
-
+import utente.*;
 
 public class PersonaFisica implements Utente{
 
@@ -24,6 +24,21 @@ public class PersonaFisica implements Utente{
 				//errore sesso non corretto.
 				Sesso.ERR;
 	}
+	
+	public PersonaFisica(String nome, String cognome, String genere, String comuneNascita, String data_nascita) {
+		super();
+		this.nome = nome;
+		this.cognome = cognome;
+		this.genere = (genere.toUpperCase() == "M") ? Sesso.M :
+			(genere.toUpperCase() == "F") ? Sesso.F : 
+				//errore sesso non corretto.
+				Sesso.ERR;
+		this.luogo_nascita = comuneNascita;
+		this.data_nascita = data_nascita;
+		this.cf = CodiceFiscale.calcolaCF(cognome, nome, data_nascita, genere, comuneNascita);
+	}
+
+
 
 	public PersonaFisica() {
 		super();

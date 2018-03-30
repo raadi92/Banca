@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class CodiceFiscale {
 
-	public String calcolaCF(String cognome, String nome, String data, String genere, String comuneNascita) {
+	public static String calcolaCF(String cognome, String nome, String data, String genere, String comuneNascita) {
 		int count = 0;
 		String cf="";
 		
@@ -103,7 +103,7 @@ public class CodiceFiscale {
 		return (count==16) ? cf : "errore";	
 	}
 	
-	private boolean isVocale(String c) {
+	private static boolean isVocale(String c) {
 		return (c=="a" || c=="e" || c=="i" || c=="o" || c=="u");
 	}
 	

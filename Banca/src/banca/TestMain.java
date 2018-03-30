@@ -12,7 +12,7 @@ import utente.*;
 public class TestMain {
 
 	public static void main(String[] args) throws IOException {
-		
+	
 		Banca [] banche = {new Banca("IntesaSanPaolo"), new Banca("Unicredit")};
 		BufferedReader br = null;
 		

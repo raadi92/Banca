@@ -2,6 +2,7 @@ package utente;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,13 +15,13 @@ public class CodiceFiscale {
 		
 				/*		COGNOME		*/
 		String [] c = cognome.replace(" ", "").split("");
-		for (int i=0;i<c.length || count == 3;i++) {
+		for (int i=0;i<c.length && count < 3;i++) {
 			if (!isVocale(c[i])) {
 				count++;
 				cf += c[i].toUpperCase();
 			}
 		}
-		if(count < 3) for(int i=0;i<c.length || count == 3;i++) {
+		if(count < 3) for(int i=0;i<c.length && count < 3;i++) {
 			if (isVocale(c[i])) {
 				count++;
 				cf += c[i].toUpperCase();
@@ -29,13 +30,13 @@ public class CodiceFiscale {
 		
 				/*		NOME		*/
 		String[] n = nome.replace(" ", "").split("");
-		for (int i=0;i<n.length || count == 6;i++) {
+		for (int i=0;i<n.length && count < 6;i++) {
 			if (!isVocale(n[i])) {
 				count++;
 				cf += n[i].toUpperCase();
 			}
 		}
-		if(count < 6) for(int i=0;i<n.length || count == 6;i++) {
+		if(count < 6) for(int i=0;i<n.length && count < 6;i++) {
 			if (isVocale(n[i])) {
 				count++;
 				cf += n[i].toUpperCase();
@@ -72,24 +73,24 @@ public class CodiceFiscale {
 		
 					//	comune di nascita
 		Connection conn = null;
-	    Statement stmt = null;
+	    PreparedStatement stmt = null;
 	    ResultSet rs = null;
-	    boolean check = false;
 		try {
-			conn = DriverManager.getConnection("jdbc:sqlite:/test.db");
-			String query = "SELECT cod_catasto FROM comuni WHERE desc_comune = '"+ comuneNascita.toUpperCase() +"';";
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(query);
+			Class.forName("org.sqlite.JDBC");
+			conn = DriverManager.getConnection("jdbc:sqlite:src/test.db");
 			
-			while(rs.next()) {
-				check = true;
-				cf += rs.getString("cod_catasto");
-			}
-			if (check)	count += 4;
+			stmt = conn.prepareStatement(" SELECT cod_catasto FROM comuni WHERE desc_comune = ? ");
+			stmt.setString(1,comuneNascita.toUpperCase());
+			rs = stmt.executeQuery();
+		
+			cf += (rs.next()) ? rs.getString("cod_catasto") : "ERRO";
+			
 		} catch (SQLException ex) {
-	        System.out.println("connessione errata");
+	        System.out.println("connessione");
 	        System.exit(0);
-	    }
+	    } catch (ClassNotFoundException e) {
+			System.out.println("classe");
+		}
 		
 					//	codice di controllo
 		int controllo = 0;
@@ -97,14 +98,15 @@ public class CodiceFiscale {
 			if (i % 2 == 0)	controllo += codControlloDispari (cf.charAt(i));
 			if (i % 2 == 1)	controllo += codControlloPari (cf.charAt(i));			
 		}
-		cf += codControlloResto(controllo);
-		count++;
+
+		cf += codControlloResto(controllo%26);
 		
-		return (count==16) ? cf : "errore";	
+		return (cf.length() == 16) ? cf : "errore";	
 	}
 	
 	private static boolean isVocale(String c) {
-		return (c=="a" || c=="e" || c=="i" || c=="o" || c=="u");
+		boolean b = (c.equals("a") || c.equals("e") || c.equals("i") || c.equals("o") || c.equals("u"));
+		return b;
 	}
 	
 	private static int codControlloDispari(char carattere) {

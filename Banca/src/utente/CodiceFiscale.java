@@ -1,5 +1,11 @@
 package utente;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class CodiceFiscale {
 
 	public String calcolaCF(String cognome, String nome, String data, String genere, String comuneNascita) {
@@ -65,8 +71,25 @@ public class CodiceFiscale {
 		cf +=	(day<10) ?	"0"+day : day;
 		
 					//	comune di nascita
-		
-		count += 4;
+		Connection conn = null;
+	    Statement stmt = null;
+	    ResultSet rs = null;
+	    boolean check = false;
+		try {
+			conn = DriverManager.getConnection("jdbc:sqlite:/test.db");
+			String query = "SELECT cod_catasto FROM comuni WHERE desc_comune = '"+ comuneNascita.toUpperCase() +"';";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				check = true;
+				cf += rs.getString("cod_catasto");
+			}
+			if (check)	count += 4;
+		} catch (SQLException ex) {
+	        System.out.println("connessione errata");
+	        System.exit(0);
+	    }
 		
 					//	codice di controllo
 		int controllo = 0;

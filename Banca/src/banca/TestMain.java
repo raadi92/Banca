@@ -4,6 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import contocorrente.*;
 import utente.*;
@@ -38,6 +43,50 @@ public class TestMain {
 	}
 
 	public static void leggiDBContiCorrenti(Banca b) throws IOException {
+		
+		Connection conn = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+	    ContoCorrente temp = null;
+	    PersonaFisica pftmp = null;
+	    Iban ibantmp = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			conn = DriverManager.getConnection("jdbc:sqlite:src/test.db");
+			
+			stmt = conn.prepareStatement(" SELECT * FROM cc, intestatario I WHERE nome = ? AND I.idi = cc.idi ");
+			stmt.setString(1,b.getNome());
+			rs = stmt.executeQuery();
+		
+			while (rs.next()) {
+				ibantmp = new Iban(rs.getString("iban"));
+				pftmp = new PersonaFisica(rs.getString("nome"),rs.getString("cognome"),rs.getString("genere"), rs.getString("cf"), rs.getString("luogonas"), rs.getString("datanasc"));
+				temp = new ContoCorrente(pftmp, ibantmp, rs.getDouble("saldo") );
+				b.add(temp);
+				ibantmp = null;
+				pftmp = null;
+				temp = null;
+			}
+			
+		} catch (SQLException ex) {
+	        System.out.println("connessione");
+	        System.exit(0);
+	    } catch (ClassNotFoundException e) {
+			System.out.println("classe");
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		/*		caricamento da File		*/
+		
+		
+		
 		/**
 		 * FORMATO File <NomeBanca>_db.txt
 		 *	Linea 1: Proprietario
@@ -45,33 +94,33 @@ public class TestMain {
 		 *	Linea 3: Saldo
 		 *	Linea vuota
 		 */
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(new FileReader(b.getNome()+"_db.txt"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			System.out.println("DataBase "+ b.getNome() + " mancante!");
-		}
-		
-		for (String p = br.readLine();p != null; p = br.readLine()) {
-			String iban = br.readLine();
-			String salstr = br.readLine();
-			String separator = br.readLine();
-			String [] dati = p.split(" ");
-			if (iban == null || salstr == null) break;
-			double saldo = Double.parseDouble(salstr);
-			PersonaFisica per = new PersonaFisica (dati[0], dati[1], dati[2], dati[3], dati[4], dati[5]);
-			Utente proprietario = (dati.length == 6) ? per :
-						new Azienda(dati[6], dati[7], per);					
-			ContoCorrente cc = new ContoCorrente(proprietario, new Iban(iban), saldo);
-			
-			b.add(cc);
-			
-			if (separator == null) break;
-			
-		}
-		
-		br.close();
+//		BufferedReader br = null;
+//		try {
+//			br = new BufferedReader(new FileReader(b.getNome()+"_db.txt"));
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//			System.out.println("DataBase "+ b.getNome() + " mancante!");
+//		}
+//		
+//		for (String p = br.readLine();p != null; p = br.readLine()) {
+//			String iban = br.readLine();
+//			String salstr = br.readLine();
+//			String separator = br.readLine();
+//			String [] dati = p.split(" ");
+//			if (iban == null || salstr == null) break;
+//			double saldo = Double.parseDouble(salstr);
+//			PersonaFisica per = new PersonaFisica (dati[0], dati[1], dati[2], dati[3], dati[4], dati[5]);
+//			Utente proprietario = (dati.length == 6) ? per :
+//						new Azienda(dati[6], dati[7], per);					
+//			ContoCorrente cc = new ContoCorrente(proprietario, new Iban(iban), saldo);
+//			
+//			b.add(cc);
+//			
+//			if (separator == null) break;
+//			
+//		}
+//		
+//		br.close();
 		
 	}
 	

@@ -90,6 +90,12 @@ public class CodiceFiscale {
 	        System.exit(0);
 	    } catch (ClassNotFoundException e) {
 			System.out.println("classe");
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 					//	codice di controllo
